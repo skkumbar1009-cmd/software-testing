@@ -1,0 +1,36 @@
+name: TESTINGHUB PUNE CI/CD
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test-backend:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r backend/requirements.txt
+    - name: Run Backend Tests
+      run: |
+        python backend/manage.py test backend/api/ -v 2
+
+  build-images:
+    needs: test-backend
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build Backend Docker Image
+      run: |
+        docker build -t testinghub-backend:latest ./backend
+    - name: Build Frontend Docker Image
+      run: |
+        docker build -t testinghub-frontend:latest ./frontend

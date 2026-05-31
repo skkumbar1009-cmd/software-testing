@@ -1,0 +1,24 @@
+# Node.js
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/*.local
+
+# Python / Django
+backend/.venv/
+backend/venv/
+backend/env/
+backend/db.sqlite3
+backend/__pycache__/
+backend/api/__pycache__/
+backend/backend/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# System and logs
+logs/
+*.log
+.DS_Store
+.vscode/
+.idea/
